@@ -12,7 +12,9 @@ module.exports = {
       password: 'docker',
       user: 'postgres',
       port: 5432,
-      database: 'movie_list'
+      database: 'movie_list',
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
     }
   },
 

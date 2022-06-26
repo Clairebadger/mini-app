@@ -17,33 +17,34 @@ app.get('/movies', (req, res) => {
     knex('movie_details')
         .select('*')
         .then(data => {
-            var movieNames = data.map((x) => x.name)
-            res.json(movieNames)
+            res.json(data)
         })
 })
 
 app.post('/movies', (req, res) => {
+
     knex('movie_details')
         .insert(req.body)
         .returning(Object.keys(req.body))
         .then(data => res.status(200).json(data))
 })
 
-app.patch('/movies/:id', (req, res) => {
-    let movieId = parseInt(req.params.id)
+app.patch('/movies/:name', (req, res) => {
+    let movieName = req.params.name
     // console.log(orderId);
     knex('movie_details')
-      .where({ id: movieId })
+      .where({ name: movieName })
       .update(req.body, Object.keys(req.body))
       .then(data => {
         res.status(200).json(data) //send data over if success
       })
   })
 
-  app.delete('/movies/:id', (req, res) => {
-    let movieId = parseInt(req.params.id)
+  app.delete('/movies/:name', (req, res) => {
+    let movieName = req.params.name
+    
     knex('movie_details')
-        .where('id', '=', movieId)
+        .where('name', '=', movieName)
         .del()
         .then(data => {
             res.status(200).json(`Number of records deleted: ${data}`);
