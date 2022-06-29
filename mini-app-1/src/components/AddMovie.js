@@ -1,13 +1,14 @@
 import {useState, useContext} from 'react'
 import MovieContext from './MovieContext'
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
-const AddMovie = ()=>{
+const AddMovie = (props)=>{
     let [input, setInput] = useState([])
-    let {movies} = useContext(MovieContext)
+    let {movies, update, setUpdate} = useContext(MovieContext)
 
     let handleChange = (e) => {
         setInput(e.target.value)
-        console.log(input)
     }
     
     const handleSubmit = async (event) => { 
@@ -16,12 +17,13 @@ const AddMovie = ()=>{
         let body = {id: id, name : input}
         console.log(body)
 
-        let res = await fetch(`http://localhost:8080/movies`, {
+        let res = await fetch(`${ApiUrl}movies`, {
               method: "POST",
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(body),
         });
         console.log(res)
+        props.callback(5)
     }
 
     return (

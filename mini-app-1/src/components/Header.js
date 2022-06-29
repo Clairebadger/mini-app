@@ -2,8 +2,7 @@
 import SearchBar from './SearchBar.js'
 import { Link } from "react-router-dom";
 import "./Header.css";
-import RemoveMovie from './RemoveMovie.js';
-import AddMovie from './AddMovie.js';
+
 
 const Header = () => {
     return (
@@ -19,9 +18,8 @@ const Header = () => {
                     <button> Movie List </button>
                 </div>
             </Link>
+            
             <div className='inputButton'><SearchBar/></div>
-            <div className='inputButton'><RemoveMovie/></div>
-            <div className='inputButton'><AddMovie/></div>
             </div>
         </div>
     )

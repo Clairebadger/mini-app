@@ -1,6 +1,8 @@
 import {useState} from 'react'
+import config from '../config'
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
-const RemoveMovie = ()=>{
+const RemoveMovie = (props)=>{
     let [input, setInput] = useState([])
 
     let handleChange = (e) => {
@@ -12,9 +14,10 @@ const RemoveMovie = ()=>{
         event.preventDefault()
         //edit body here
         console.log(input)
-        let res = await fetch(`http://localhost:8080/movies/${input}`, {method: "DELETE"})
+        let res = await fetch(`${ApiUrl}movies/${input}`, {method: "DELETE"})
             .then(() => console.log('Delete successful'))
         console.log(res)
+        props.callback(10)
     }
 
     return (
